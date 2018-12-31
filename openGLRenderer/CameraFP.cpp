@@ -1,4 +1,5 @@
 #include "CameraFP.h"
+#include <iostream>
 
 using namespace std;
 
@@ -7,6 +8,8 @@ CameraFP::CameraFP(int scrn_width, int scrn_height)
 	this->screenWidthMid = scrn_width / 2.0f;
 	this->screenHeightMid = scrn_height / 2.0f;
 
+	//this->yaw = -0.0f;
+	//this->pitch = 0.0f;
 	this->updateVectors();
 }
 
@@ -30,6 +33,11 @@ void CameraFP::mousePositionUpdate(float deltaTime, int x, int y)
 	this->yaw += xOffset;
 	this->pitch += yOffset;
 
+	if (this->pitch > 89.0f)
+		this->pitch = 89.0f;
+	if (this->pitch < -89.0f)
+		this->pitch = -89.0f;
+	
 	this->updateVectors();
 }
 

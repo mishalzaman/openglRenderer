@@ -1,6 +1,7 @@
 #include "Model.h"
+#include <iostream>
 
-
+using namespace std;
 
 Model::Model(std::string const &path)
 {
@@ -14,7 +15,9 @@ Model::~Model()
 void Model::draw(Shader shader)
 {
 	for (unsigned int i = 0; i < this->meshes.size(); i++)
+	{
 		this->meshes[i].draw(shader);
+	}
 }
 
 void Model::loadModel(std::string const &path)

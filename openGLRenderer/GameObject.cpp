@@ -1,12 +1,16 @@
 #include "GameObject.h"
+#include <iostream>
+#include <string>
 
+using namespace std;
 
-
-GameObject::GameObject(const char* vertexPath, const char* fragmentPath, const char *filename) :
-	shader(vertexPath, fragmentPath),
-	model(filename)
+GameObject::GameObject(Shader *shader, Model *model, glm::vec3 position) :
+	shader(*shader),
+	model(*model),
+	aabb()
 {
-
+	this->position = position;
+	// aabb.setBounds(model.meshes[0].vertices);
 }
 
 
@@ -21,7 +25,12 @@ void GameObject::render()
 	model.draw(shader);
 }
 
+glm::vec3 GameObject::getPosition()
+{
+	return this->position;
+}
+
 void GameObject::cleanUp()
 {
-
+	
 }

@@ -8,6 +8,8 @@
 #include "GameObject.h"
 #include "CameraFP.h"
 #include "Player.h"
+#include "ShaderManager.h"
+#include "ModelManager.h"
 
 bool firstMouse = true;
 const int SCREEN_WIDTH = 1280;
@@ -68,11 +70,22 @@ int main(int argc, char *argv[])
 
 	glEnable(GL_DEPTH_TEST);
 
+	// ShaderManager
+	ShaderManager* shaders = ShaderManager::getInstance();
+	shaders->add("general", "shader.vs", "shader.fs");
+	shaders->add("aabb", "aabb.vs", "aabb.fs");
+
+	// ModelManager
+	ModelManager* models = ModelManager::getInstance();
+	models->add("ship", "assets/ship/ship.obj");
+	models->add("ground", "assets/ground/ground.obj");
+	models->add("block", "assets/block/block.obj");
+
 	CameraFP *camera = new CameraFP(SCREEN_WIDTH, SCREEN_HEIGHT);
 	Player *player = new Player();
-	GameObject *ship = new GameObject("shader.vs", "shader.fs", "assets/ship/ship.obj");
-	GameObject *ground = new GameObject("shader.vs", "shader.fs", "assets/ground/ground.obj");
-	GameObject *block = new GameObject("shader.vs", "shader.fs", "assets/block/block.obj");
+	GameObject *ship = new GameObject(&shaders->get("general"), &models->get("ship"), player->getPosition());
+	GameObject *ground = new GameObject(&shaders->get("general"), &models->get("ground"), glm::vec3(0.0f, -2.5f, 0.0f));
+	GameObject *block = new GameObject(&shaders->get("general"), &models->get("block"), glm::vec3(-2.0f, 0.0f, -2.0f));
 
 	float deltaTime = 0.0f;
 	float lastTime = 0.0f;
@@ -170,7 +183,7 @@ int main(int argc, char *argv[])
 
 		// ground
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, -2.5f, 0.0f));
+		model = glm::translate(model, ground->getPosition());
 		ground->shader.use();
 		ground->shader.setMat4("projection", projection);
 		ground->shader.setMat4("view", view);
@@ -179,7 +192,7 @@ int main(int argc, char *argv[])
 
 		// block
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(-2.0f, 0.0f, -2.0f));
+		model = glm::translate(model, block->getPosition());
 		block->shader.use();
 		block->shader.setMat4("projection", projection);
 		block->shader.setMat4("view", view);
@@ -187,14 +200,13 @@ int main(int argc, char *argv[])
 		block->render();
 
 		SDL_GL_SwapWindow(window);
-
-		// cout << "frame rate: " + to_string(deltaTime) + "ms" << endl;
 	}
 
 	ship->cleanUp();
 	delete(ship);
 	delete(camera);
 	delete(player);
+	delete(ground);
 	delete(block);
 
 	SDL_GL_DeleteContext(context);

@@ -28,6 +28,11 @@ glm::mat4 Player::getModel(float deltaTime)
 	return this->model;
 }
 
+glm::vec3 Player::getPosition()
+{
+	return this->position;
+}
+
 void Player::yawRight(float deltaTime)
 {
 	this->yaw -= this->rotationAngle;
@@ -94,11 +99,10 @@ void Player::accelerate(float deltaTime)
 	// https://www.allaboutcircuits.com/technical-articles/dont-get-lost-in-deep-space-understanding-quaternions/
 
 	glm::mat4 rm = glm::toMat4(glm::normalize(this->yawQuat * this->pitchQuat * this->rollQuat));
-	std::cout << glm::to_string(rm) << std::endl;
-	cout << to_string(rm[0][0]) + ", " + to_string(rm[0][1]) + ", " + to_string(rm[0][2]) + ", " + to_string(rm[0][3]) << endl;
-	cout << to_string(rm[1][0]) + ", " + to_string(rm[1][1]) + ", " + to_string(rm[1][2]) + ", " + to_string(rm[1][3]) << endl;
-	cout << to_string(rm[2][0]) + ", " + to_string(rm[2][1]) + ", " + to_string(rm[2][2]) + ", " + to_string(rm[2][3]) << endl;
-	cout << to_string(rm[3][0]) + ", " + to_string(rm[3][1]) + ", " + to_string(rm[3][2]) + ", " + to_string(rm[3][3]) << endl;
+	//cout << to_string(rm[0][0]) + ", " + to_string(rm[0][1]) + ", " + to_string(rm[0][2]) + ", " + to_string(rm[0][3]) << endl;
+	//cout << to_string(rm[1][0]) + ", " + to_string(rm[1][1]) + ", " + to_string(rm[1][2]) + ", " + to_string(rm[1][3]) << endl;
+	//cout << to_string(rm[2][0]) + ", " + to_string(rm[2][1]) + ", " + to_string(rm[2][2]) + ", " + to_string(rm[2][3]) << endl;
+	//cout << to_string(rm[3][0]) + ", " + to_string(rm[3][1]) + ", " + to_string(rm[3][2]) + ", " + to_string(rm[3][3]) << endl;
 
 	this->position -= glm::vec3(rm[0][0], rm[0][1], rm[0][2]) * 0.05f;
 	this->position -= glm::vec3(rm[3][0], rm[3][1], rm[3][2]) * 0.05f;

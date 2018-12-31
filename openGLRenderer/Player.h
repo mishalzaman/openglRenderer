@@ -6,7 +6,7 @@
 class Player
 {
 public:
-	Player(glm::vec3 position = glm::vec3(0.0f));
+	Player(glm::vec3 position = glm::vec3(1.0f,0.0f,0.0f));
 	~Player();
 	glm::mat4 getModel(float deltaTime);
 	void yawRight(float deltaTime);
@@ -15,6 +15,7 @@ public:
 	void pitchDown(float deltaTime);
 	void accelerate(float deltaTime);
 	void reverse(float deltaTime);
+	glm::vec3 getPosition();
 private:
 	float yaw = 90.0f; // degrees
 	float pitch = 0.0f; // degrees
