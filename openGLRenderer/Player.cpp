@@ -104,8 +104,8 @@ void Player::accelerate(float deltaTime)
 	//cout << to_string(rm[2][0]) + ", " + to_string(rm[2][1]) + ", " + to_string(rm[2][2]) + ", " + to_string(rm[2][3]) << endl;
 	//cout << to_string(rm[3][0]) + ", " + to_string(rm[3][1]) + ", " + to_string(rm[3][2]) + ", " + to_string(rm[3][3]) << endl;
 
-	this->position -= glm::vec3(rm[0][0], rm[0][1], rm[0][2]) * 0.05f;
-	this->position -= glm::vec3(rm[3][0], rm[3][1], rm[3][2]) * 0.05f;
+	this->position -= glm::vec3(rm[0][0], rm[0][1], rm[0][2]) * 0.01f;
+	this->position -= glm::vec3(rm[3][0], rm[3][1], rm[3][2]) * 0.01f;
 	this->model = glm::translate(glm::mat4(1.0f), this->position) * rm;
 }
 

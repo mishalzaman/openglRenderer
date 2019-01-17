@@ -23,3 +23,15 @@ Model ModelManager::get(std::string name)
 {
 	return *this->models.find(name)->second;
 }
+
+void ModelManager::cleanUp()
+{
+	for (auto it = this->models.cbegin(); it != this->models.cend();)
+	{
+		delete it->second;
+
+		// erase() function returns the iterator of the next
+		// to last deleted element.
+		it = this->models.erase(it);
+	}
+}

@@ -72,6 +72,18 @@
     <None Include="aabb.fs">
       <Filter>shaders</Filter>
     </None>
+    <None Include="lamp.vs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="lamp.fs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="light_casted.fs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="light_casted.vs">
+      <Filter>shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">

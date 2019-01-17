@@ -20,6 +20,7 @@ public:
 	static ModelManager* getInstance();
 	void add(std::string name, const char *filename);
 	Model get(std::string name);
+	void cleanUp();
 private:
 	static ModelManager* instance; // storing the instance
 	ModelManager(); // private constructor to prevent instancing

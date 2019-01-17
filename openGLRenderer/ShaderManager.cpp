@@ -1,4 +1,7 @@
 #include "ShaderManager.h"
+#include <iostream>
+
+using namespace std;
 
 ShaderManager* ShaderManager::instance = 0; // setting this to zero as instance wil be initialized on demand
 
@@ -26,11 +29,12 @@ Shader ShaderManager::get(std::string name)
 
 void ShaderManager::cleanUp()
 {
-	std::map<std::string, Shader*>::iterator it = this->shaders.begin();
-
-	while (it != this->shaders.end())
+	for (auto it = this->shaders.cbegin(); it != this->shaders.cend();)
 	{
-		// might want to delete the shader object too?
-		this->shaders.erase(it);
+		glDeleteProgram(it->second->ID);
+
+		// erase() function returns the iterator of the next
+		// to last deleted element.
+		it = this->shaders.erase(it);
 	}
 }

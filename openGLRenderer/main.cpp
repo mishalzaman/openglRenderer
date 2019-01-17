@@ -52,7 +52,6 @@ int main(int argc, char *argv[])
 
 	// Create context
 	SDL_GLContext context = SDL_GL_CreateContext(window);
-	//SDL_SetRelativeMouseMode(SDL_TRUE);
 	SDL_CaptureMouse(SDL_TRUE);
 	SDL_ShowCursor(0);
 	// SDL_SetWindowFullscreen(window, SDL_TRUE);
@@ -74,6 +73,8 @@ int main(int argc, char *argv[])
 	ShaderManager* shaders = ShaderManager::getInstance();
 	shaders->add("general", "shader.vs", "shader.fs");
 	shaders->add("aabb", "aabb.vs", "aabb.fs");
+	shaders->add("lamp", "lamp.vs", "lamp.fs");
+	shaders->add("light_casted", "light_casted.vs", "light_casted.fs");
 
 	// ModelManager
 	ModelManager* models = ModelManager::getInstance();
@@ -83,12 +84,13 @@ int main(int argc, char *argv[])
 
 	CameraFP *camera = new CameraFP(SCREEN_WIDTH, SCREEN_HEIGHT);
 	Player *player = new Player();
-	GameObject *ship = new GameObject(&shaders->get("general"), &models->get("ship"), player->getPosition());
-	GameObject *ground = new GameObject(&shaders->get("general"), &models->get("ground"), glm::vec3(0.0f, -2.5f, 0.0f));
-	GameObject *block = new GameObject(&shaders->get("general"), &models->get("block"), glm::vec3(-2.0f, 0.0f, -2.0f));
+	GameObject *ship = new GameObject(&shaders->get("light_casted"), &models->get("ship"), player->getPosition());
+	GameObject *ground = new GameObject(&shaders->get("light_casted"), &models->get("ground"), glm::vec3(0.0f, -2.5f, 0.0f));
+	GameObject *block = new GameObject(&shaders->get("light_casted"), &models->get("block"), glm::vec3(-2.0f, 0.0f, -2.0f));
+	GameObject *lamp = new GameObject(&shaders->get("lamp"), &models->get("block"), glm::vec3(0.0f, 0.0f, 0.0f));
 
-	float deltaTime = 0.0f;
-	float lastTime = 0.0f;
+	float deltaTime = 0.0f; 
+	float lastTime = 0.0f; 
 
 	SDL_WarpMouseInWindow(window, SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 
@@ -179,6 +181,9 @@ int main(int argc, char *argv[])
 		ship->shader.setMat4("projection", projection);
 		ship->shader.setMat4("view", view);
 		ship->shader.setMat4("model", model);
+		ship->shader.setVec3("lightPos", lamp->getPosition());
+		ship->shader.setVec3("lightColor", glm::vec3(1.0f));
+		ship->shader.setVec3("objectColor", glm::vec3(0.5f, 0.5f, 0.5f));
 		ship->render();
 
 		// ground
@@ -188,6 +193,9 @@ int main(int argc, char *argv[])
 		ground->shader.setMat4("projection", projection);
 		ground->shader.setMat4("view", view);
 		ground->shader.setMat4("model", model);
+		ground->shader.setVec3("lightPos", lamp->getPosition());
+		ground->shader.setVec3("lightColor", glm::vec3(1.0f));
+		ground->shader.setVec3("objectColor", glm::vec3(0.5f, 0.5f, 0.5f));
 		ground->render();
 
 		// block
@@ -197,17 +205,31 @@ int main(int argc, char *argv[])
 		block->shader.setMat4("projection", projection);
 		block->shader.setMat4("view", view);
 		block->shader.setMat4("model", model);
+		block->shader.setVec3("lightPos", lamp->getPosition());
+		block->shader.setVec3("lightColor", glm::vec3(1.0f));
+		block->shader.setVec3("objectColor", glm::vec3(0.5f, 0.5f, 0.5f));
 		block->render();
+
+		// lamp
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, lamp->getPosition());
+		model = glm::scale(model, glm::vec3(0.2, 0.2, 0.2));
+		lamp->shader.use();
+		lamp->shader.setMat4("projection", projection);
+		lamp->shader.setMat4("view", view);
+		lamp->shader.setMat4("model", model);
+		lamp->render();
 
 		SDL_GL_SwapWindow(window);
 	}
 
-	ship->cleanUp();
 	delete(ship);
 	delete(camera);
 	delete(player);
 	delete(ground);
 	delete(block);
+	shaders->cleanUp();
+	models->cleanUp();
 
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
