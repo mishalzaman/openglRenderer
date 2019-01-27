@@ -12,6 +12,11 @@ Engine::~Engine()
 {
 }
 
+void Engine::render()
+{
+	SDL_GL_SwapWindow(this->window);
+}
+
 bool Engine::initialize()
 {
 	// Initialize SDL's Video subsystem
@@ -57,11 +62,6 @@ bool Engine::initialize()
 	glEnable(GL_DEPTH_TEST);
 
 	return true;
-}
-
-void Engine::render()
-{
-	SDL_GL_SwapWindow(this->window);
 }
 
 void Engine::cleanUp()
