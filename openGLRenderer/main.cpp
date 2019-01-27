@@ -10,7 +10,6 @@
 #include "Player.h"
 #include "ShaderManager.h"
 #include "ModelManager.h"
-#include "Engine.h"
 #include "Input.h"
 
 bool firstMouse = true;
@@ -23,7 +22,6 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	SDL_Event event;
-	Engine engine(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	// Initialize SDL's Video subsystem
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)

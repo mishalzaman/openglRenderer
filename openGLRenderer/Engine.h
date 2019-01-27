@@ -14,12 +14,11 @@ public:
 	void update();
 	void render();
 	void cleanUp();
+	SDL_Window *window;
+	SDL_GLContext context;
 private:
-	
 	int screenWidth;
 	int screenHeight;
 	SDL_Event event;
-	SDL_Window *window;
-	SDL_GLContext context;
 };
 
