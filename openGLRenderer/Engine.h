@@ -13,6 +13,7 @@ public:
 	void load();
 	void update();
 	void render();
+	void cleanUp();
 private:
 	
 	int screenWidth;

@@ -55,4 +55,18 @@ bool Engine::initialize()
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	glEnable(GL_DEPTH_TEST);
+
+	return true;
+}
+
+void Engine::render()
+{
+	SDL_GL_SwapWindow(this->window);
+}
+
+void Engine::cleanUp()
+{
+	SDL_GL_DeleteContext(this->context);
+	SDL_DestroyWindow(this->window);
+	SDL_Quit();
 }

@@ -11,22 +11,19 @@
 #include "ShaderManager.h"
 #include "ModelManager.h"
 #include "Engine.h"
+#include "Input.h"
 
 bool firstMouse = true;
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 bool quit = false;
 
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
 using namespace std;
 
 int main(int argc, char *argv[])
 {
 	SDL_Event event;
-	const Uint8* keystates = SDL_GetKeyboardState(NULL);
+	Engine engine(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	// Initialize SDL's Video subsystem
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -70,6 +67,8 @@ int main(int argc, char *argv[])
 
 	glEnable(GL_DEPTH_TEST);
 
+	
+
 	// ShaderManager
 	ShaderManager* shaders = ShaderManager::getInstance();
 	shaders->add("general", "shader.vs", "shader.fs");
@@ -79,15 +78,14 @@ int main(int argc, char *argv[])
 
 	// ModelManager
 	ModelManager* models = ModelManager::getInstance();
-	models->add("ship", "assets/ship/ship.obj");
 	models->add("ground", "assets/ground/ground.obj");
 	models->add("block", "assets/block2/Cube_obj.obj");
 	models->add("cube", "assets/block/block.obj");
 	models->add("walls", "assets/walls/walls.obj");
 
 	CameraFP *camera = new CameraFP(SCREEN_WIDTH, SCREEN_HEIGHT);
-	Player *player = new Player();
-	GameObject *ship = new GameObject(&shaders->get("light_casted"), &models->get("ship"), player->getPosition());
+	Input input = Input();
+
 	GameObject *ground = new GameObject(&shaders->get("light_casted"), &models->get("ground"), glm::vec3(0.0f, -2.5f, 0.0f));
 	GameObject *block = new GameObject(&shaders->get("light_casted"), &models->get("block"), glm::vec3(-2.0f, 2.0f, -2.0f));
 	GameObject *lamp = new GameObject(&shaders->get("lamp"), &models->get("cube"), glm::vec3(0.0f, 0.0f, 0.0f));
@@ -110,88 +108,31 @@ int main(int argc, char *argv[])
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 
-		// ship controls
-		if (keystates[SDL_SCANCODE_A])
-		{
-			player->yawLeft(deltaTime);
-		}
-		if (keystates[SDL_SCANCODE_D])
-		{
-			player->yawRight(deltaTime);
-		}
-		if (keystates[SDL_SCANCODE_W])
-		{
-			player->accelerate(deltaTime);
-		}
-		if (keystates[SDL_SCANCODE_S])
-		{
-			player->reverse(deltaTime);
-		}
-		if (keystates[SDL_SCANCODE_O])
-		{
-			player->accelerate(deltaTime);
-		}
-		if (keystates[SDL_SCANCODE_P])
-		{
-			player->reverse(deltaTime);
-		}
-		// Camera controls
-		if (keystates[SDL_SCANCODE_UP])
-		{
-			camera->forward(deltaTime);
-		}
-		if (keystates[SDL_SCANCODE_DOWN])
-		{
-			camera->backward(deltaTime);
-		}
-		if (keystates[SDL_SCANCODE_RIGHT])
-		{
-			camera->strafeRight(deltaTime);
-		}
-		if (keystates[SDL_SCANCODE_LEFT])
-		{
-			camera->strafeLeft(deltaTime);
-		}
+		input.update(deltaTime);
+		if (input.isForward()) { camera->forward(deltaTime); };
+		if (input.isBackward()) { camera->backward(deltaTime); };
+		if (input.isStrafeLeft()) { camera->strafeLeft(deltaTime); };
+		if (input.isStrafeRight()) { camera->strafeRight(deltaTime); };
+		if (input.isQuit()) { quit = true; }
 
 
 		// Poll shut down
 		if (SDL_PollEvent(&event) )
 		{
-			if (event.type == SDL_KEYDOWN)
-			{
-				if (event.key.keysym.sym == SDLK_ESCAPE)
-				{
-					quit = true;
-				}
-			}
 			if (event.type == SDL_MOUSEMOTION)
 			{
-
 				int x, y;
 				SDL_GetMouseState(&x, &y);
 				camera->mousePositionUpdate(deltaTime, x, y);
-				
 				SDL_WarpMouseInWindow(window, SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 			}
 		}
 			
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
-
-		// ship
 		glm::mat4 view = camera->getViewMatrix();
-		glm::mat4 model;
-		model = player->getModel(deltaTime);
-		ship->shader.use();
-		ship->shader.setMat4("projection", projection);
-		ship->shader.setMat4("view", view);
-		ship->shader.setMat4("model", model);
-		ship->shader.setVec3("lightPos", lamp->getPosition());
-		ship->shader.setVec3("lightColor", glm::vec3(1.0f));
-		ship->shader.setVec3("objectColor", glm::vec3(0.5f, 0.5f, 0.5f));
-		ship->render();
 
 		// ground
-		model = glm::mat4(1.0f);
+		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, ground->getPosition());
 		ground->shader.use();
 		ground->shader.setMat4("projection", projection);
@@ -241,9 +182,7 @@ int main(int argc, char *argv[])
 		SDL_GL_SwapWindow(window);
 	}
 
-	delete(ship);
 	delete(camera);
-	delete(player);
 	delete(ground);
 	delete(block);
 	delete(walls);
