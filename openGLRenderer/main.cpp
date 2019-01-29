@@ -11,6 +11,7 @@
 #include "ShaderManager.h"
 #include "ModelManager.h"
 #include "Input.h"
+#include "SceneManager.h"
 
 bool firstMouse = true;
 const int SCREEN_WIDTH = 1280;
@@ -65,7 +66,7 @@ int main(int argc, char *argv[])
 
 	glEnable(GL_DEPTH_TEST);
 
-	
+	SDL_WarpMouseInWindow(window, SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 
 	// ShaderManager
 	ShaderManager* shaders = ShaderManager::getInstance();
@@ -84,15 +85,13 @@ int main(int argc, char *argv[])
 	CameraFP *camera = new CameraFP(SCREEN_WIDTH, SCREEN_HEIGHT);
 	Input input = Input();
 
-	GameObject *ground = new GameObject(&shaders->get("light_casted"), &models->get("ground"), glm::vec3(0.0f, -2.5f, 0.0f));
-	GameObject *block = new GameObject(&shaders->get("light_casted"), &models->get("block"), glm::vec3(-2.0f, 2.0f, -2.0f));
-	GameObject *lamp = new GameObject(&shaders->get("lamp"), &models->get("cube"), glm::vec3(0.0f, 0.0f, 0.0f));
-	GameObject *walls = new GameObject(&shaders->get("light_casted"), &models->get("walls"), glm::vec3(-2.0f, 2.0f, -2.0f));
+	GameObject *ground = new GameObject(&shaders->get("light_casted"), &models->get("ground"), glm::vec3(0.0f, -1.5f, 0.0f));
+	GameObject *block = new GameObject(&shaders->get("light_casted"), &models->get("block"), glm::vec3(-2.0f, -0.8f, 2.0f));
+	GameObject *lamp = new GameObject(&shaders->get("lamp"), &models->get("cube"), glm::vec3(0.0f, 0.0f, -1.0f));
+	GameObject *walls = new GameObject(&shaders->get("light_casted"), &models->get("walls"), glm::vec3(-2.0f, 0.0f, -2.0f));
 
 	float deltaTime = 0.0f; 
 	float lastTime = 0.0f; 
-
-	SDL_WarpMouseInWindow(window, SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 
 	while (!quit) {
 		float currentTime = SDL_GetTicks();
@@ -111,20 +110,14 @@ int main(int argc, char *argv[])
 		if (input.isBackward()) { camera->backward(deltaTime); };
 		if (input.isStrafeLeft()) { camera->strafeLeft(deltaTime); };
 		if (input.isStrafeRight()) { camera->strafeRight(deltaTime); };
-		if (input.isQuit()) { quit = true; }
-
-
-		// Poll shut down
-		if (SDL_PollEvent(&event) )
+		if (input.isMouseMotion())
 		{
-			if (event.type == SDL_MOUSEMOTION)
-			{
-				int x, y;
-				SDL_GetMouseState(&x, &y);
-				camera->mousePositionUpdate(deltaTime, x, y);
-				SDL_WarpMouseInWindow(window, SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
-			}
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+			camera->mousePositionUpdate(deltaTime, x, y);
+			SDL_WarpMouseInWindow(window, SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 		}
+		if (input.isQuit()) { quit = true; }
 			
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = camera->getViewMatrix();

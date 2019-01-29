@@ -16,6 +16,9 @@
     <Filter Include="shaders">
       <UniqueIdentifier>{bebb9f46-f4f8-4158-9a47-40eab399e706}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scenes">
+      <UniqueIdentifier>{fb5bee90-173a-4f0a-ae9c-9fa42c07adad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -128,5 +131,10 @@
     <ClInclude Include="Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="scene.txt">
+      <Filter>scenes</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -1,0 +1,12 @@
+# shaders
+# type id vertex fragment
+S 0 shader.vs shader.fs
+S 1 aabb.vs aabb.fs
+S 2 lamp.vs lamp.fs
+S 3 light_casted.vs light_casted.fs
+
+# models
+M 0 assets/ground/ground.obj
+M 1 assets/block2/Cube_obj.obj
+M 2 assets/block/block.obj
+M 3 assets/walls/walls.obj

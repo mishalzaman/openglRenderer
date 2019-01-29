@@ -22,6 +22,14 @@ void ShaderManager::add(std::string name, const char* vertexPath, const char* fr
 	this->shaders[name] = new Shader(vertexPath, fragmentPath);
 }
 
+void ShaderManager::create(int id, const char* vertexPath, const char* fragmentPath)
+{
+	cout << id << endl;
+	cout << vertexPath << endl;
+	cout << fragmentPath << endl;
+	this->shader[id] = new Shader(vertexPath, fragmentPath);
+}
+
 Shader ShaderManager::get(std::string name)
 {
 	return *this->shaders.find(name)->second;

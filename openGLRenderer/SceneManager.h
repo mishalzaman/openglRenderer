@@ -1,10 +1,20 @@
 #pragma once
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include "ShaderManager.h"
+
+using namespace std;
+
 class SceneManager
 {
 public:
-	static SceneManager* getInstance();
+	SceneManager();
+	~SceneManager();
+	void loadScene(const char* scene);
+	ShaderManager* shaders = ShaderManager::getInstance();
 private:
-	static SceneManager* instance; // storing the instance
-	SceneManager(); // private constructor to prevent instancing
+	
 };
-

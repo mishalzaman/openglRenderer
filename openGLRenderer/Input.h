@@ -15,6 +15,7 @@ public:
 	bool isBackward();
 	bool isStrafeLeft();
 	bool isStrafeRight();
+	bool isMouseMotion();
 	bool isQuit();
 private:
 	SDL_Event event;
@@ -22,6 +23,7 @@ private:
 	bool backward = false;
 	bool strafeRight = false;
 	bool strafeLeft = false;
+	bool mouseMotion = false;
 	bool quit = false;
 };
 

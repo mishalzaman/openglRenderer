@@ -27,6 +27,8 @@ void Input::update(float deltaTime)
 			if (event.key.keysym.sym == SDLK_a && event.key.repeat == 0) { this->strafeLeft = false; }
 			if (event.key.keysym.sym == SDLK_d && event.key.repeat == 0) { this->strafeRight = false; }
 			break;
+		case SDL_MOUSEMOTION:
+			this->mouseMotion = true;
 		default:
 			break;
 		}
@@ -37,5 +39,15 @@ bool Input::isForward() { return this->forward; }
 bool Input::isBackward() { return this->backward; }
 bool Input::isStrafeLeft() { return this->strafeLeft; }
 bool Input::isStrafeRight() { return this->strafeRight; }
+bool Input::isMouseMotion()
+{ 
+	if (this->mouseMotion)
+	{
+		this->mouseMotion = false;
+		return true;
+	}
+
+	return false;
+}
 bool Input::isQuit() { return this->quit; }
 

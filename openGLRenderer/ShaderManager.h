@@ -21,6 +21,7 @@ class ShaderManager
 public:
 	static ShaderManager* getInstance();
 	void add(std::string name, const char* vertexPath, const char* fragmentPath);
+	void create(int id, const char* vertexPath, const char* fragmentPath);
 	Shader get(std::string name);
 	void cleanUp();
 private:
@@ -28,5 +29,6 @@ private:
 	ShaderManager(); // private constructor to prevent instancing
 
 	std::map<std::string, Shader*> shaders; // store a pointer to a Shader object
+	std::map<int, Shader*> shader; // new
 };
 
