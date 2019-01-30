@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 
-SceneManager::SceneManager() {
+SceneManager::SceneManager()
+{
 }
 
 SceneManager::~SceneManager()
@@ -13,15 +14,46 @@ void SceneManager::loadScene(const char* scene)
 	ifstream file(scene);
 	while (getline(file, line))
 	{
-		if (line[0] == 'S')
+		if (line.substr(0, 2) == "SR")
 		{
 			std::istringstream iss(line);
-			char ignore;
+			string ignore;
 			int id;
 			string vertex, fragment;
 
 			iss >> ignore >> id >> vertex >> fragment;
-			this->shaders->create(id, vertex.c_str(), fragment.c_str());
+			this->shaders->add(id, vertex.c_str(), fragment.c_str());
 		}
+		else if (line.substr(0, 2) == "ML")
+		{
+			std::istringstream iss(line);
+			string ignore;
+			int id;
+			string file;
+
+			iss >> ignore >> id >> file;
+			this->models->add(id, file.c_str());
+		}
+		else if (line.substr(0, 2) == "EN")
+		{
+			std::istringstream iss(line);
+			string ignore;
+			int id, model_id, shader_id;
+			float px, py, pz, sx, sy, sz;
+
+			iss >> ignore >> id >> model_id >> shader_id >> px >> py >> pz >> sx >> sy >> sz;
+			this->entities[id] = new GameObject(&this->shaders->get(shader_id), &this->models->get(model_id), glm::vec3(px, py, pz), glm::vec3(sx, sy, sz));
+		}
+	}
+}
+
+void SceneManager::render(glm::mat4 view, glm::mat4 projection)
+{
+	std::map<int, GameObject*>::iterator it = this->entities.begin();
+
+	while (it != this->entities.end())
+	{
+		it->second->render(view, projection);
+		it++;
 	}
 }

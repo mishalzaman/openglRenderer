@@ -5,11 +5,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "GameObject.h"
 #include "CameraFP.h"
 #include "Player.h"
-#include "ShaderManager.h"
-#include "ModelManager.h"
 #include "Input.h"
 #include "SceneManager.h"
 
@@ -68,27 +65,13 @@ int main(int argc, char *argv[])
 
 	SDL_WarpMouseInWindow(window, SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 
-	// ShaderManager
-	ShaderManager* shaders = ShaderManager::getInstance();
-	shaders->add("general", "shader.vs", "shader.fs");
-	shaders->add("aabb", "aabb.vs", "aabb.fs");
-	shaders->add("lamp", "lamp.vs", "lamp.fs");
-	shaders->add("light_casted", "light_casted.vs", "light_casted.fs");
-
-	// ModelManager
-	ModelManager* models = ModelManager::getInstance();
-	models->add("ground", "assets/ground/ground.obj");
-	models->add("block", "assets/block2/Cube_obj.obj");
-	models->add("cube", "assets/block/block.obj");
-	models->add("walls", "assets/walls/walls.obj");
 
 	CameraFP *camera = new CameraFP(SCREEN_WIDTH, SCREEN_HEIGHT);
 	Input input = Input();
 
-	GameObject *ground = new GameObject(&shaders->get("light_casted"), &models->get("ground"), glm::vec3(0.0f, -1.5f, 0.0f));
-	GameObject *block = new GameObject(&shaders->get("light_casted"), &models->get("block"), glm::vec3(-2.0f, -0.8f, 2.0f));
-	GameObject *lamp = new GameObject(&shaders->get("lamp"), &models->get("cube"), glm::vec3(0.0f, 0.0f, -1.0f));
-	GameObject *walls = new GameObject(&shaders->get("light_casted"), &models->get("walls"), glm::vec3(-2.0f, 0.0f, -2.0f));
+	//setup scene
+	SceneManager* scene = new SceneManager();
+	scene->loadScene("scene.txt");
 
 	float deltaTime = 0.0f; 
 	float lastTime = 0.0f; 
@@ -122,63 +105,13 @@ int main(int argc, char *argv[])
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = camera->getViewMatrix();
 
-		// ground
-		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::translate(model, ground->getPosition());
-		ground->shader.use();
-		ground->shader.setMat4("projection", projection);
-		ground->shader.setMat4("view", view);
-		ground->shader.setMat4("model", model);
-		ground->shader.setVec3("lightPos", lamp->getPosition());
-		ground->shader.setVec3("lightColor", glm::vec3(1.0f));
-		ground->shader.setVec3("objectColor", glm::vec3(0.5f, 0.5f, 0.5f));
-		ground->render();
-
-		// block
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, block->getPosition());
-		model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
-		block->shader.use();
-		block->shader.setMat4("projection", projection);
-		block->shader.setMat4("view", view);
-		block->shader.setMat4("model", model);
-		block->shader.setVec3("lightPos", lamp->getPosition());
-		block->shader.setVec3("lightColor", glm::vec3(1.0f));
-		block->shader.setVec3("objectColor", glm::vec3(0.5f, 0.5f, 0.5f));
-		block->render();
-
-		// walls
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, walls->getPosition());
-		// model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
-		walls->shader.use();
-		walls->shader.setMat4("projection", projection);
-		walls->shader.setMat4("view", view);
-		walls->shader.setMat4("model", model);
-		walls->shader.setVec3("lightPos", lamp->getPosition());
-		walls->shader.setVec3("lightColor", glm::vec3(1.0f));
-		walls->shader.setVec3("objectColor", glm::vec3(0.5f, 0.5f, 0.5f));
-		walls->render();
-
-		// lamp
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, lamp->getPosition());
-		model = glm::scale(model, glm::vec3(0.2, 0.2, 0.2));
-		lamp->shader.use();
-		lamp->shader.setMat4("projection", projection);
-		lamp->shader.setMat4("view", view);
-		lamp->shader.setMat4("model", model);
-		lamp->render();
+		scene->render(view, projection);
 
 		SDL_GL_SwapWindow(window);
 	}
 
 	delete(camera);
-	delete(ground);
-	delete(block);
-	delete(walls);
-	shaders->cleanUp();
-	models->cleanUp();
+	delete(scene);
 
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);

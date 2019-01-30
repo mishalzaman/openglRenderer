@@ -17,22 +17,14 @@ ShaderManager* ShaderManager::getInstance()
 	return instance;
 }
 
-void ShaderManager::add(std::string name, const char* vertexPath, const char* fragmentPath)
+void ShaderManager::add(int id, const char* vertexPath, const char* fragmentPath)
 {
-	this->shaders[name] = new Shader(vertexPath, fragmentPath);
+	this->shaders[id] = new Shader(vertexPath, fragmentPath);
 }
 
-void ShaderManager::create(int id, const char* vertexPath, const char* fragmentPath)
+Shader ShaderManager::get(int id)
 {
-	cout << id << endl;
-	cout << vertexPath << endl;
-	cout << fragmentPath << endl;
-	this->shader[id] = new Shader(vertexPath, fragmentPath);
-}
-
-Shader ShaderManager::get(std::string name)
-{
-	return *this->shaders.find(name)->second;
+	return *this->shaders.find(id)->second;
 }
 
 void ShaderManager::cleanUp()
