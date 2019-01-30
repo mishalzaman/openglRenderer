@@ -18,13 +18,13 @@ class ModelManager
 {
 public:
 	static ModelManager* getInstance();
-	void add(std::string name, const char *filename);
-	Model get(std::string name);
+	void add(int id, const char *filename);
+	Model get(int id);
 	void cleanUp();
 private:
 	static ModelManager* instance; // storing the instance
 	ModelManager(); // private constructor to prevent instancing
 
-	std::map<std::string, Model*> models; // store a pointer to a Shader object
+	std::map<int, Model*> models; // store a pointer to a Shader object
 };
 

@@ -1,12 +1,13 @@
 # shaders
 # type id vertex fragment
-S 0 shader.vs shader.fs
-S 1 aabb.vs aabb.fs
-S 2 lamp.vs lamp.fs
-S 3 light_casted.vs light_casted.fs
+SR 0 shader.vs shader.fs
 
 # models
-M 0 assets/ground/ground.obj
-M 1 assets/block2/Cube_obj.obj
-M 2 assets/block/block.obj
-M 3 assets/walls/walls.obj
+# type id file
+ML 0 assets/ground/ground.obj
+ML 1 assets/block2/Cube_obj.obj
+
+# entities
+# type id model_id shader_id px py pz sx sy sz
+EN 0 0 0 0.0 -1.5 0.0 1.0 1.0 1.0
+EN 1 1 0 0.0 -0.8 0.0 0.01 0.01 0.01

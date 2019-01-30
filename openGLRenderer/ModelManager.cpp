@@ -14,14 +14,14 @@ ModelManager* ModelManager::getInstance()
 	return instance;
 }
 
-void ModelManager::add(std::string name, const char *filename)
+void ModelManager::add(int id, const char *filename)
 {
-	this->models[name] = new Model(filename);
+	this->models[id] = new Model(filename);
 }
 
-Model ModelManager::get(std::string name)
+Model ModelManager::get(int id)
 {
-	return *this->models.find(name)->second;
+	return *this->models.find(id)->second;
 }
 
 void ModelManager::cleanUp()
