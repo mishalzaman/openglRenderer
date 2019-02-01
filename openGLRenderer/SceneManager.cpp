@@ -22,7 +22,7 @@ void SceneManager::loadScene(const char* scene)
 			string vertex, fragment;
 
 			iss >> ignore >> id >> vertex >> fragment;
-			this->shaders->add(id, vertex.c_str(), fragment.c_str());
+			this->shaders[id] = new Shader(vertex.c_str(), fragment.c_str());
 		}
 		else if (line.substr(0, 2) == "ML")
 		{
@@ -32,7 +32,7 @@ void SceneManager::loadScene(const char* scene)
 			string file;
 
 			iss >> ignore >> id >> file;
-			this->models->add(id, file.c_str());
+			this->models[id] = new Model(file.c_str());
 		}
 		else if (line.substr(0, 2) == "EN")
 		{
@@ -42,7 +42,7 @@ void SceneManager::loadScene(const char* scene)
 			float px, py, pz, sx, sy, sz;
 
 			iss >> ignore >> id >> model_id >> shader_id >> px >> py >> pz >> sx >> sy >> sz;
-			this->entities[id] = new GameObject(&this->shaders->get(shader_id), &this->models->get(model_id), glm::vec3(px, py, pz), glm::vec3(sx, sy, sz));
+			this->entities[id] = new GameObject(this->shaders[shader_id], this->models[model_id], glm::vec3(px, py, pz), glm::vec3(sx, sy, sz));
 		}
 	}
 }
