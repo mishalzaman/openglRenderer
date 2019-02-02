@@ -1,20 +1,69 @@
 #include "Engine.h"
-
-
+#include "CameraFP.h"
+#include "Input.h"
+#include "SceneManager.h"
 
 Engine::Engine(int screenWidth, int screenHeight)
 {
 	this->screenWidth = screenWidth;
 	this->screenHeight = screenHeight;
+
+	this->camera = new CameraFP(this->screenWidth, this->screenHeight);
+	this->input = new Input();
+	this->sceneManager = new SceneManager();
 }
 
 Engine::~Engine()
 {
 }
 
+void Engine::load()
+{
+	this->sceneManager->loadScene("scene.txt");
+}
+
+void Engine::update(float deltaTime)
+{
+	// Handle user input
+	this->input->update(deltaTime);
+	if (this->input->isForward()) { camera->forward(deltaTime); };
+	if (this->input->isBackward()) { camera->backward(deltaTime); };
+	if (this->input->isStrafeLeft()) { camera->strafeLeft(deltaTime); };
+	if (this->input->isStrafeRight()) { camera->strafeRight(deltaTime); };
+	if (this->input->isMouseMotion())
+	{
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+		camera->mousePositionUpdate(deltaTime, x, y);
+		SDL_WarpMouseInWindow(this->window, this->screenWidth / 2.0f, this->screenHeight / 2.0f);
+	}
+	if (this->input->isQuit()) { this->quit = true; }
+
+	// update projection and view matrix
+	this->projection = glm::perspective(glm::radians(45.0f), (float)this->screenWidth / (float)this->screenHeight, 0.1f, 100.0f);
+	this->view = this->camera->getViewMatrix();
+}
+
 void Engine::render()
 {
+	this->sceneManager->render(this->view, this->projection);
+
 	SDL_GL_SwapWindow(this->window);
+}
+
+void Engine::bufferUpdate()
+{
+	// reset buffer
+	glClearColor(0.0, 0.1, 0.0, 1.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+}
+
+bool Engine::shutdown()
+{
+	return this->quit;
 }
 
 bool Engine::initialize()
@@ -61,11 +110,16 @@ bool Engine::initialize()
 
 	glEnable(GL_DEPTH_TEST);
 
+	SDL_WarpMouseInWindow(this->window, this->screenWidth / 2.0f, this->screenHeight / 2.0f);
+
 	return true;
 }
 
 void Engine::cleanUp()
 {
+	delete(this->camera);
+	delete(this->input);
+	delete(this->sceneManager);
 	SDL_GL_DeleteContext(this->context);
 	SDL_DestroyWindow(this->window);
 	SDL_Quit();
