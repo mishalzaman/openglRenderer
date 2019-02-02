@@ -1,14 +1,4 @@
 #include <iostream>
-#include <string>
-#include <GL/glew.h>
-#include <sdl/SDL.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include "CameraFP.h"
-#include "Player.h"
-#include "Input.h"
-#include "SceneManager.h"
 #include "Engine.h"
 
 Engine* engine = new Engine(1280, 720);
