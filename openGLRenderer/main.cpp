@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 		deltaTime = currentTime - lastTime;
 		lastTime = currentTime;
 
-		engine->bufferUpdate();
+		engine->preProcess();
 
 		engine->update(deltaTime);
 

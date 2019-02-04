@@ -3,7 +3,7 @@
 
 using namespace std;
 
-AABB::AABB() : shader("aabb.vs", "aabb.fs")
+AABB::AABB()
 {
 }
 
@@ -13,6 +13,7 @@ AABB::~AABB()
 	glDeleteVertexArrays(1, &this->VAO);
 	glDeleteBuffers(1, &this->VBO);
 	glDeleteBuffers(1, &this->EBO);
+	delete(this->shader);
 }
 
 void AABB::setBounds(std::vector<Vertex> vertices)
@@ -46,7 +47,7 @@ bool AABB::isInside(AABB other)
 
 void AABB::setBbVertices()
 {
-	float vertices[] = {
+	this->vertices = {
 		this->xMin, this->yMin, this->zMin,
 		this->xMax, this->yMin, this->zMin,
 		this->xMax, this->yMax, this->zMin,
@@ -57,7 +58,7 @@ void AABB::setBbVertices()
 		this->xMin, this->yMax, this->zMax
 	};
 
-	unsigned int indices[] = {  // note that we start from 0!
+	this->indices = {  // note that we start from 0!
 		0, 1, 3, 3, 1, 2,
 		1, 5, 2, 2, 5, 6,
 		5, 4, 6, 6, 4, 7,
@@ -73,10 +74,10 @@ void AABB::setBbVertices()
 	glBindVertexArray(this->VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), &vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, this->vertices.size() * sizeof(float), &this->vertices[0], GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(unsigned int), &this->indices[0], GL_STATIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
@@ -89,14 +90,15 @@ void AABB::setBbVertices()
 	glBindVertexArray(0);
 }
 
-void AABB::render(glm::mat4 projection, glm::mat4 view, glm::vec3 position)
+void AABB::render(glm::mat4 projection, glm::mat4 view, glm::vec3 position, glm::vec3 scale)
 {
-	this->shader.use();
-	this->shader.setMat4("projection", projection);
-	this->shader.setMat4("view", view);
+	this->shader->use();
+	this->shader->setMat4("projection", projection);
+	this->shader->setMat4("view", view);
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, position);
-	this->shader.setMat4("model", model);
+	model = glm::scale(model, scale);
+	this->shader->setMat4("model", model);
 	glBindVertexArray(this->VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
 }

@@ -24,7 +24,21 @@ void Engine::load()
 
 void Engine::update(float deltaTime)
 {
-	// Handle user input
+	this->updateUserInput(deltaTime);
+
+	// update projection and view matrix
+	this->projection = glm::perspective(glm::radians(45.0f), (float)this->screenWidth / (float)this->screenHeight, 0.1f, 100.0f);
+	this->view = this->camera->getViewMatrix();
+}
+
+void Engine::render()
+{
+	this->sceneManager->render(this->view, this->projection);
+	SDL_GL_SwapWindow(this->window);
+}
+
+void Engine::updateUserInput(float deltaTime)
+{
 	this->input->update(deltaTime);
 	if (this->input->isForward()) { camera->forward(deltaTime); };
 	if (this->input->isBackward()) { camera->backward(deltaTime); };
@@ -38,25 +52,22 @@ void Engine::update(float deltaTime)
 		SDL_WarpMouseInWindow(this->window, this->screenWidth / 2.0f, this->screenHeight / 2.0f);
 	}
 	if (this->input->isQuit()) { this->quit = true; }
-
-	// update projection and view matrix
-	this->projection = glm::perspective(glm::radians(45.0f), (float)this->screenWidth / (float)this->screenHeight, 0.1f, 100.0f);
-	this->view = this->camera->getViewMatrix();
 }
 
-void Engine::render()
+void Engine::preProcess()
 {
-	this->sceneManager->render(this->view, this->projection);
-
-	SDL_GL_SwapWindow(this->window);
+	this->resetBuffer();
+	this->GLOptions();
 }
 
-void Engine::bufferUpdate()
+void Engine::resetBuffer()
 {
-	// reset buffer
 	glClearColor(0.0, 0.1, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+}
+
+void Engine::GLOptions()
+{
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 }

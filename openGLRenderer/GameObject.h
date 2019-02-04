@@ -21,6 +21,6 @@ private:
 	glm::vec3 position;
 	glm::vec3 scale;
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
-	std::vector<AABB> bounds;
+	std::vector<AABB*> bounds;
 };
 

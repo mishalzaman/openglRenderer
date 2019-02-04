@@ -11,12 +11,12 @@ GameObject::GameObject(Shader *shader, Model *model, glm::vec3 position, glm::ve
 	this->position = position;
 	this->scale = scale;
 
-	//for (int i = 0; i < model->meshes.size(); i++)
-	//{
-	//	AABB aabb;
-	//	aabb.setBounds(model->meshes[0].vertices);
-	//	this->bounds.push_back(aabb);
-	//}
+	for (int i = 0; i < model->meshes.size(); i++)
+	{
+		AABB* aabb = new AABB();
+		aabb->setBounds(model->meshes[i].vertices);
+		this->bounds.push_back(aabb);
+	}
 }
 
 
@@ -38,6 +38,13 @@ void GameObject::render(glm::mat4 view, glm::mat4 projection)
 	this->shader.setMat4("view", view);
 	this->shader.setMat4("model", this->modelMatrix);
 	this->model.draw(this->shader);
+
+	for (int i = 0; i < this->bounds.size(); i++)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		this->bounds[i]->render(projection, view, this->position, this->scale);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
 }
 
 glm::vec3 GameObject::getPosition()

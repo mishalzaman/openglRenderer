@@ -18,12 +18,15 @@ public:
 	~Engine();
 	bool initialize();
 	void load();
+	void preProcess();
 	void update(float deltaTime);
 	void render();
-	void bufferUpdate();
 	void cleanUp();
 	bool shutdown();
 private:
+	void updateUserInput(float deltaTime);
+	void resetBuffer();
+	void GLOptions();
 	int screenWidth;
 	int screenHeight;
 	bool quit = false;
