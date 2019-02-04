@@ -86,6 +86,12 @@ bool Engine::initialize()
 		return false;
 	}
 
+	// initialize ttf for font rendering
+	if (TTF_Init() == -1) {
+		printf("TTF_Init: %s\n", TTF_GetError());
+		exit(2);
+	}
+
 	// Create window
 	this->window = SDL_CreateWindow(
 		"Test",
@@ -133,5 +139,6 @@ void Engine::cleanUp()
 	delete(this->sceneManager);
 	SDL_GL_DeleteContext(this->context);
 	SDL_DestroyWindow(this->window);
+	TTF_Quit();
 	SDL_Quit();
 }
