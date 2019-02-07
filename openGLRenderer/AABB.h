@@ -32,5 +32,6 @@ private:
 	float zMin = 0.0;
 	float zMax = 0.0;
 	void setBbVertices();
+	void updateBounds(glm::mat4 modelMatrix);
 };
 

@@ -14,6 +14,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 
 Mesh::~Mesh()
 {
+
 }
 
 void Mesh::draw(Shader shader)

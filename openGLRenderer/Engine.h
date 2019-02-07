@@ -10,6 +10,7 @@
 class CameraFP;
 class Input;
 class SceneManager;
+class SkyBox;
 
 class Engine
 {
@@ -38,5 +39,6 @@ private:
 	CameraFP* camera;
 	Input* input;
 	SceneManager* sceneManager;
+	SkyBox* skybox;
 };
 

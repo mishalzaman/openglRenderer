@@ -17,7 +17,8 @@ public:
 	SceneManager();
 	~SceneManager();
 	void loadScene(const char* scene);
-	void render(glm::mat4 view, glm::mat4 projection);
+	void update(glm::mat4 view, glm::mat4 projection, float deltaTime);
+	void render();
 private:
 	std::map<int, GameObject*> entities;
 	std::map<int, Shader*> shaders;

@@ -2,15 +2,12 @@
 #include "CameraFP.h"
 #include "Input.h"
 #include "SceneManager.h"
+#include "SkyBox.h"
 
 Engine::Engine(int screenWidth, int screenHeight)
 {
 	this->screenWidth = screenWidth;
 	this->screenHeight = screenHeight;
-
-	this->camera = new CameraFP(this->screenWidth, this->screenHeight);
-	this->input = new Input();
-	this->sceneManager = new SceneManager();
 }
 
 Engine::~Engine()
@@ -19,7 +16,12 @@ Engine::~Engine()
 
 void Engine::load()
 {
+	this->camera = new CameraFP(this->screenWidth, this->screenHeight);
+	this->input = new Input();
+	this->sceneManager = new SceneManager();
 	this->sceneManager->loadScene("scene.txt");
+	this->skybox = new SkyBox();
+	this->skybox->load();
 }
 
 void Engine::update(float deltaTime)
@@ -29,11 +31,14 @@ void Engine::update(float deltaTime)
 	// update projection and view matrix
 	this->projection = glm::perspective(glm::radians(45.0f), (float)this->screenWidth / (float)this->screenHeight, 0.1f, 100.0f);
 	this->view = this->camera->getViewMatrix();
+
+	this->sceneManager->update(this->view, this->projection, deltaTime);
 }
 
 void Engine::render()
 {
-	this->sceneManager->render(this->view, this->projection);
+	this->sceneManager->render();
+	this->skybox->render(this->camera->getViewMatrix(), this->projection);
 	SDL_GL_SwapWindow(this->window);
 }
 

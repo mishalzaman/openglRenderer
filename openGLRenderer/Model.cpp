@@ -10,6 +10,7 @@ Model::Model(std::string const &path)
 
 Model::~Model()
 {
+	// TODO: delete mesh VAO and VBO here?
 }
 
 void Model::draw(Shader shader)

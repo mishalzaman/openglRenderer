@@ -24,25 +24,26 @@ GameObject::~GameObject()
 {
 }
 
-void GameObject::update()
+void GameObject::update(glm::mat4 view, glm::mat4 projection, float deltaTime)
 {
-
-}
-
-void GameObject::render(glm::mat4 view, glm::mat4 projection)
-{
+	this->projectionMatrix = projection;
+	this->viewMatrix = view;
 	this->modelMatrix = glm::translate(glm::mat4(1.0f), this->position);
 	this->modelMatrix = glm::scale(this->modelMatrix, this->scale);
+}
+
+void GameObject::render()
+{
 	this->shader.use();
-	this->shader.setMat4("projection", projection);
-	this->shader.setMat4("view", view);
+	this->shader.setMat4("projection", this->projectionMatrix);
+	this->shader.setMat4("view", this->viewMatrix);
 	this->shader.setMat4("model", this->modelMatrix);
 	this->model.draw(this->shader);
 
 	for (int i = 0; i < this->bounds.size(); i++)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		this->bounds[i]->render(projection, view, this->position, this->scale);
+		this->bounds[i]->render(this->projectionMatrix, this->viewMatrix, this->position, this->scale);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }

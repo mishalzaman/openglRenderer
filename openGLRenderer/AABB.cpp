@@ -90,6 +90,11 @@ void AABB::setBbVertices()
 	glBindVertexArray(0);
 }
 
+void AABB::updateBounds(glm::mat4 modelMatrix)
+{
+
+}
+
 void AABB::render(glm::mat4 projection, glm::mat4 view, glm::vec3 position, glm::vec3 scale)
 {
 	this->shader->use();

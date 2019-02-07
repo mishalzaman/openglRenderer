@@ -47,13 +47,24 @@ void SceneManager::loadScene(const char* scene)
 	}
 }
 
-void SceneManager::render(glm::mat4 view, glm::mat4 projection)
+void SceneManager::update(glm::mat4 view, glm::mat4 projection, float deltaTime)
 {
 	std::map<int, GameObject*>::iterator it = this->entities.begin();
 
 	while (it != this->entities.end())
 	{
-		it->second->render(view, projection);
+		it->second->update(view, projection, deltaTime);
+		it++;
+	}
+}
+
+void SceneManager::render()
+{
+	std::map<int, GameObject*>::iterator it = this->entities.begin();
+
+	while (it != this->entities.end())
+	{
+		it->second->render();
 		it++;
 	}
 }
