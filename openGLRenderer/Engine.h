@@ -17,17 +17,14 @@ class Engine
 public:
 	Engine(int screenWidth, int screenHeight);
 	~Engine();
-	bool initialize();
+	void initialize();
 	void load();
-	void preProcess();
 	void update(float deltaTime);
 	void render();
 	void cleanUp();
 	bool shutdown();
+	void resetBuffers();
 private:
-	void updateUserInput(float deltaTime);
-	void resetBuffer();
-	void GLOptions();
 	int screenWidth;
 	int screenHeight;
 	bool quit = false;
@@ -40,5 +37,16 @@ private:
 	Input* input;
 	SceneManager* sceneManager;
 	SkyBox* skybox;
+	void initSDL();
+	void initWindow();
+	void initContext();
+	void initGlew();
+	void initGLAttributes();
+	void enableDepthTest();
+	void enableMouseCapture(bool state);
+	void enableMouseCursor(bool state);
+	void setMouseToCenter();
+	void updateUserInput(float deltaTime);
+	void cullingOptions();
 };
 

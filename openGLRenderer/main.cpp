@@ -8,7 +8,6 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	engine->initialize();
-
 	engine->load();
 
 	float deltaTime, lastTime = 0.0f;
@@ -18,8 +17,9 @@ int main(int argc, char *argv[])
 		deltaTime = currentTime - lastTime;
 		lastTime = currentTime;
 
-		engine->preProcess();
+		engine->resetBuffers();
 
+		// put this in a fixed timestep
 		engine->update(deltaTime);
 
 		engine->render();

@@ -11,8 +11,8 @@ SkyBox::SkyBox()
 SkyBox::~SkyBox()
 {
 	delete(this->shader);
-	// glDeleteVertexArrays(1, &this->VAO);
-	// glDeleteBuffers(1, &this->VBO);
+	glDeleteVertexArrays(1, &this->VAO);
+	glDeleteBuffers(1, &this->VBO);
 }
 
 void SkyBox::load()
