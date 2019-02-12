@@ -11,6 +11,7 @@ class CameraFP;
 class Input;
 class SceneManager;
 class SkyBox;
+class FrameBuffer;
 
 class Engine
 {
@@ -23,20 +24,20 @@ public:
 	void render();
 	void cleanUp();
 	bool shutdown();
-	void resetBuffers();
 private:
 	int screenWidth;
 	int screenHeight;
 	bool quit = false;
 	glm::mat4 projection;
 	glm::mat4 view;
-	SDL_Window *window;
+	SDL_Window* window;
 	SDL_GLContext context;
 	SDL_Event event;
 	CameraFP* camera;
 	Input* input;
 	SceneManager* sceneManager;
 	SkyBox* skybox;
+	FrameBuffer* framebuffer;
 	void initSDL();
 	void initWindow();
 	void initContext();

@@ -8,7 +8,7 @@ SceneManager::~SceneManager()
 {
 }
 
-void SceneManager::loadScene(const char* scene)
+void SceneManager::load(const char* scene)
 {
 	string line;
 	ifstream file(scene);

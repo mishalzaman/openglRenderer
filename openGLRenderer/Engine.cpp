@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "SceneManager.h"
 #include "SkyBox.h"
+#include "FrameBuffer.h"
 
 Engine::Engine(int screenWidth, int screenHeight)
 {
@@ -19,6 +20,8 @@ Engine::Engine(int screenWidth, int screenHeight)
 	this->enableMouseCursor(false);
 	this->enableDepthTest();
 	this->setMouseToCenter();
+
+	glViewport(0, 0, this->screenWidth, this->screenHeight);
 }
 
 Engine::~Engine()
@@ -31,12 +34,14 @@ void Engine::initialize()
 	this->input = new Input();
 	this->sceneManager = new SceneManager();
 	this->skybox = new SkyBox();
+	this->framebuffer = new FrameBuffer(this->screenWidth, this->screenHeight);
 }
 
 void Engine::load()
 {
-	this->sceneManager->loadScene("scene.txt");
+	this->sceneManager->load("scene.txt");
 	this->skybox->load();
+	this->framebuffer->load();
 }
 
 void Engine::update(float deltaTime)
@@ -50,8 +55,13 @@ void Engine::render()
 {
 	this->cullingOptions();
 
+	this->framebuffer->firstPass();
 	this->sceneManager->render();
 	this->skybox->render(this->view, this->projection);
+
+	this->framebuffer->secondPass();
+	this->framebuffer->render();
+
 	SDL_GL_SwapWindow(this->window);
 }
 
@@ -70,12 +80,6 @@ void Engine::updateUserInput(float deltaTime)
 		SDL_WarpMouseInWindow(this->window, this->screenWidth / 2.0f, this->screenHeight / 2.0f);
 	}
 	if (this->input->isQuit()) { this->quit = true; }
-}
-
-void Engine::resetBuffers()
-{
-	glClearColor(0.0, 0.1, 0.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Engine::cullingOptions()
