@@ -63,6 +63,9 @@
     <ClCompile Include="SkyBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="shader.fs">
@@ -94,6 +97,12 @@
       <Filter>shaders</Filter>
     </None>
     <None Include="skybox.fs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="framebuffer.vs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="framebuffer.fs">
       <Filter>shaders</Filter>
     </None>
   </ItemGroup>
@@ -129,6 +138,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SkyBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

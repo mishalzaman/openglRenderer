@@ -17,8 +17,6 @@ int main(int argc, char *argv[])
 		deltaTime = currentTime - lastTime;
 		lastTime = currentTime;
 
-		engine->resetBuffers();
-
 		// put this in a fixed timestep
 		engine->update(deltaTime);
 
