@@ -154,7 +154,6 @@
     <None Include="lamp.vs" />
     <None Include="light_casted.fs" />
     <None Include="light_casted.vs" />
-    <None Include="readme.md" />
     <None Include="shader.fs" />
     <None Include="shader.vs" />
     <None Include="skybox.fs" />

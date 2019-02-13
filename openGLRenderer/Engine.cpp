@@ -55,10 +55,12 @@ void Engine::render()
 {
 	this->cullingOptions();
 
+	
 	this->framebuffer->firstPass();
 	this->sceneManager->render();
 	this->skybox->render(this->view, this->projection);
 
+	
 	this->framebuffer->secondPass();
 	this->framebuffer->render();
 
