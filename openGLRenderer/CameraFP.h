@@ -20,7 +20,7 @@ public:
 	void mousePositionUpdate(float deltaTime, int x, int y);
 private:
 	float speed = 0.01f;
-	float mouseSensitivity = 0.4f;
+	float mouseSensitivity = 0.5f;
 	int screenWidthMid;
 	int screenHeightMid;
 
