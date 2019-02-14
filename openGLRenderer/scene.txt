@@ -1,14 +1,11 @@
 # shaders
-# type id vertex fragment
+# id vertex fragment
 SR 0 shader.vs shader.fs
 
 # models
-# type id file
-ML 0 assets/ground/ground.obj
-ML 1 assets/block2/Cube_obj.obj
+# id file
+ML 1 assets/swimming_pool/SwimmingPool.obj
 
 # entities
-# type id model_id shader_id px py pz sx sy sz
-EN 0 0 0 0.0 -1.5 0.0 1.0 1.0 1.0
-EN 1 1 0 0.0 -0.8 0.0 0.01 0.01 0.01
-EN 2 1 0 0.0 -0.8 2.0 0.01 0.01 0.01
+# id model_id shader_id px py pz sx sy szf
+EN 3 1 0 0.0 0.0 0.0 0.8 0.8 0.8f

@@ -15,7 +15,7 @@ public:
 	SkyBox();
 	~SkyBox();
 	void load();
-	void render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
+	void draw(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 private:
 	void loadCubeMap();
 	void loadCube();

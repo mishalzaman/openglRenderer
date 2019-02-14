@@ -106,7 +106,7 @@ void SkyBox::loadCube()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 }
 
-void SkyBox::render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
+void SkyBox::draw(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
 	glDepthFunc(GL_LEQUAL);
 	this->shader->use();

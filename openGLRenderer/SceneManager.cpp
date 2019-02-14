@@ -58,7 +58,7 @@ void SceneManager::update(glm::mat4 view, glm::mat4 projection, float deltaTime)
 	}
 }
 
-void SceneManager::render()
+void SceneManager::draw()
 {
 	std::map<int, GameObject*>::iterator it = this->entities.begin();
 
