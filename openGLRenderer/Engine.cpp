@@ -40,7 +40,7 @@ void Engine::initialize()
 void Engine::load()
 {
 	this->sceneManager->load("scene.txt");
-	// this->skybox->load();
+	this->skybox->load();
 	this->framebuffer->load();
 }
 
@@ -58,7 +58,7 @@ void Engine::render()
 	
 	this->framebuffer->firstPass();
 	this->sceneManager->draw();
-	// this->skybox->draw(this->view, this->projection);
+	this->skybox->draw(this->view, this->projection);
 
 	
 	this->framebuffer->secondPass();

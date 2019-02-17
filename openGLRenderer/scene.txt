@@ -1,6 +1,6 @@
 # shaders
 # id vertex fragment
-SR 0 shader.vs shader.fs
+SR 0 basic.vs basic.fs
 
 # models
 # id file
@@ -8,4 +8,4 @@ ML 1 assets/swimming_pool/SwimmingPool.obj
 
 # entities
 # id model_id shader_id px py pz sx sy szf
-EN 3 1 0 0.0 0.0 0.0 0.8 0.8 0.8f
+EN 3 1 0 0.0 0.0 0.0 0.4 0.4 0.4f
