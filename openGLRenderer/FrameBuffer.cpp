@@ -3,7 +3,7 @@
 
 FrameBuffer::FrameBuffer(int screenWidth, int screenHeight)
 {
-	this->shader = new Shader("framebuffer.vs", "framebuffer.fs");
+	this->shader = new Shader("shaders/framebuffer.vs", "shaders/framebuffer.fs");
 	this->screenWidth = screenWidth;
 	this->screenHeight = screenHeight;
 }

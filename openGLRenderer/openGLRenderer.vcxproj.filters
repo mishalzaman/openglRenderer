@@ -13,11 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="shaders">
-      <UniqueIdentifier>{bebb9f46-f4f8-4158-9a47-40eab399e706}</UniqueIdentifier>
-    </Filter>
     <Filter Include="scenes">
       <UniqueIdentifier>{fb5bee90-173a-4f0a-ae9c-9fa42c07adad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{3cc5a054-b50a-4a57-ba86-d93104f53c61}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -68,32 +68,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="aabb.vs">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="aabb.fs">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="skybox.vs">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="skybox.fs">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="framebuffer.vs">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="framebuffer.fs">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="basic.fs">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="basic.vs">
-      <Filter>shaders</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -135,5 +109,31 @@
     <Text Include="scene.txt">
       <Filter>scenes</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\aabb.fs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\aabb.vs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\basic.fs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\basic.vs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\framebuffer.fs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\framebuffer.vs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\skybox.fs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\skybox.vs">
+      <Filter>shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

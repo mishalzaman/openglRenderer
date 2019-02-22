@@ -1,11 +1,16 @@
 # shaders
-# id vertex fragment
-SR 0 basic.vs basic.fs
+# id	  vertex		fragment
+SR 0	  shaders/basic.vs		shaders/basic.fs
 
 # models
-# id file
-ML 1 assets/swimming_pool/SwimmingPool.obj
+# id	file
+ML 0	assets/rectangle/rectangle.obj
+ML 1	assets/sphere/sphere.obj
+ML 2	assets/cube/cube.obj
 
 # entities
-# id model_id shader_id px py pz sx sy szf
-EN 3 1 0 0.0 0.0 0.0 0.4 0.4 0.4f
+# id model_id shader_id		px		py		pz		sx		sy		sz
+EN 0        0		  0		0.0		0.0		0.0		1.5		0.5		1.5f
+EN 1		1		  0		0.0		1.0		4.0		0.5		0.5		0.5f
+EN 2		2		  0		4.0		1.0		0.0		0.5		0.5		0.5f
+EN 3		2		  0		0.0		5.0		0.0		0.2		0.2		0.2
