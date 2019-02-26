@@ -144,6 +144,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="UniformBufferObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="UniformBufferObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="scene.txt" />
