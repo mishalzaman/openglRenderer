@@ -39,7 +39,7 @@ void Engine::initialize()
 
 void Engine::load()
 {
-	this->sceneManager->load("scene.txt");
+	this->sceneManager->load("scene.txt", this->projection);
 	this->skybox->load();
 	this->framebuffer->load();
 }
@@ -48,7 +48,7 @@ void Engine::update(float deltaTime)
 {
 	this->updateUserInput(deltaTime);
 	this->view = this->camera->getViewMatrix();
-	this->sceneManager->update(this->view, this->projection, deltaTime);
+	this->sceneManager->update(this->view, deltaTime);
 }
 
 void Engine::render()

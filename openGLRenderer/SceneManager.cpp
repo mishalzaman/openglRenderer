@@ -1,5 +1,7 @@
 #include "SceneManager.h"
 
+using namespace std;
+
 SceneManager::SceneManager()
 {
 }
@@ -8,10 +10,44 @@ SceneManager::~SceneManager()
 {
 }
 
-void SceneManager::load(const char* scene)
+void SceneManager::load(const char* filename, glm::mat4 projection)
+{
+	this->loadSceneFile(filename);
+
+	for (int i = 0; i < this->uniformBuffers.size(); i++) {
+		this->uniformBuffers[i]->updateUBOMatricesProjection(projection);
+	}
+}
+
+void SceneManager::update(glm::mat4 view, float deltaTime)
+{
+	for (int i = 0; i < this->uniformBuffers.size(); i++) {
+		this->uniformBuffers[i]->updateUBOMatricesView(view);
+	}
+
+	std::map<int, GameObject*>::iterator it = this->entities.begin();
+	while (it != this->entities.end())
+	{
+		it->second->update(deltaTime);
+		it++;
+	}
+}
+
+void SceneManager::draw()
+{
+	std::map<int, GameObject*>::iterator it = this->entities.begin();
+
+	while (it != this->entities.end())
+	{
+		it->second->render();
+		it++;
+	}
+}
+
+void SceneManager::loadSceneFile(const char* filename)
 {
 	string line;
-	ifstream file(scene);
+	ifstream file(filename);
 	while (getline(file, line))
 	{
 		if (line.substr(0, 2) == "SR")
@@ -23,6 +59,7 @@ void SceneManager::load(const char* scene)
 
 			iss >> ignore >> id >> vertex >> fragment;
 			this->shaders[id] = new Shader(vertex.c_str(), fragment.c_str());
+			this->uniformBuffers.push_back(new UniformBuffer(this->shaders[id]->ID));
 		}
 		else if (line.substr(0, 2) == "ML")
 		{
@@ -44,27 +81,5 @@ void SceneManager::load(const char* scene)
 			iss >> ignore >> id >> model_id >> shader_id >> px >> py >> pz >> sx >> sy >> sz;
 			this->entities[id] = new GameObject(this->shaders[shader_id], this->models[model_id], glm::vec3(px, py, pz), glm::vec3(sx, sy, sz));
 		}
-	}
-}
-
-void SceneManager::update(glm::mat4 view, glm::mat4 projection, float deltaTime)
-{
-	std::map<int, GameObject*>::iterator it = this->entities.begin();
-
-	while (it != this->entities.end())
-	{
-		it->second->update(view, projection, deltaTime);
-		it++;
-	}
-}
-
-void SceneManager::draw()
-{
-	std::map<int, GameObject*>::iterator it = this->entities.begin();
-
-	while (it != this->entities.end())
-	{
-		it->second->render();
-		it++;
 	}
 }

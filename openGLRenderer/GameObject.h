@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "Shader.h"
 #include "Model.h"
 #include "AABB.h"
@@ -13,7 +14,7 @@ public:
 	Model model;
 	GameObject(Shader *shader, Model *model, glm::vec3 position, glm::vec3 scale);
 	~GameObject();
-	void update(glm::mat4 view, glm::mat4 projection, float deltaTime);
+	void update(float deltaTime);
 	void render();
 	void cleanUp();
 	glm::vec3 getPosition();
