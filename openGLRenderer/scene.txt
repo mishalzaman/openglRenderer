@@ -14,4 +14,6 @@ ML 2	assets/cube/cube.obj
 EN 0        0		  0		0.0		0.0		0.0		1.5		0.5		1.5f	   static
 EN 1		1		  0		0.0		1.0		4.0		0.5		0.5		0.5f	   static
 EN 2		2		  0		4.0		1.0		0.0		0.5		0.5		0.5f	   static	
-EN 3		1		  1		0.0		5.0		0.0		0.1		0.1		0.1        light
+EN 3		2		  0		4.0		1.0		4.0		0.5		0.5		0.5f	   static	
+EN 4		2		  0		4.0		4.0		4.0		0.5		0.5		0.5f	   static	
+EN 5		1		  1		0.0		5.0		0.0		0.1		0.1		0.1        light
