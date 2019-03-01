@@ -1,6 +1,7 @@
 # shaders
 # id	  vertex		fragment
-SR 0	  shaders/basic.vs		shaders/basic.fs
+SR 0	  shaders/general.vert		shaders/general.frag
+SR 1	  shaders/light.vert		shaders/light.frag 
 
 # models
 # id	file
@@ -13,4 +14,4 @@ ML 2	assets/cube/cube.obj
 EN 0        0		  0		0.0		0.0		0.0		1.5		0.5		1.5f	   static
 EN 1		1		  0		0.0		1.0		4.0		0.5		0.5		0.5f	   static
 EN 2		2		  0		4.0		1.0		0.0		0.5		0.5		0.5f	   static	
-EN 3		2		  0		0.0		5.0		0.0		0.2		0.2		0.2        light
+EN 3		1		  1		0.0		5.0		0.0		0.1		0.1		0.1        light

@@ -14,12 +14,13 @@ void SceneManager::load(const char* filename, glm::mat4 projection)
 {
 	this->loadSceneFile(filename);
 
+	// set the projection matrix
 	for (int i = 0; i < this->uniformBuffers.size(); i++) {
 		this->uniformBuffers[i]->updateUBOMatricesProjection(projection);
 	}
 }
 
-void SceneManager::update(glm::mat4 view, float deltaTime)
+void SceneManager::update(glm::mat4 view, glm::vec3 cameraPosition, float deltaTime)
 {
 	for (int i = 0; i < this->uniformBuffers.size(); i++) {
 		this->uniformBuffers[i]->updateUBOMatricesView(view);
@@ -81,6 +82,7 @@ void SceneManager::loadSceneFile(const char* filename)
 
 			iss >> ignore >> id >> model_id >> shader_id >> px >> py >> pz >> sx >> sy >> sz >> type;
 			this->entities[id] = new GameObject(this->shaders[shader_id], this->models[model_id], glm::vec3(px, py, pz), glm::vec3(sx, sy, sz));
+			this->entities[id]->setType(type);
 		}
 	}
 }

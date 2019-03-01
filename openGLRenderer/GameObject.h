@@ -6,6 +6,7 @@
 #include "Model.h"
 #include "AABB.h"
 #include <vector>
+#include <string>
 
 class GameObject
 {
@@ -18,6 +19,8 @@ public:
 	void render();
 	void cleanUp();
 	glm::vec3 getPosition();
+	void setType(std::string type);
+	std::string getType();
 private:
 	glm::vec3 position;
 	glm::vec3 scale;
@@ -25,5 +28,6 @@ private:
 	glm::mat4 projectionMatrix;
 	glm::mat4 viewMatrix;
 	std::vector<AABB*> bounds;
+	std::string type = "static";
 };
 

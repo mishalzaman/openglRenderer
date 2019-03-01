@@ -165,14 +165,18 @@
     <Text Include="scene.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\aabb.fs" />
-    <None Include="shaders\aabb.vs" />
-    <None Include="shaders\basic.fs" />
-    <None Include="shaders\basic.vs" />
-    <None Include="shaders\framebuffer.fs" />
-    <None Include="shaders\framebuffer.vs" />
-    <None Include="shaders\skybox.fs" />
-    <None Include="shaders\skybox.vs" />
+    <None Include="shaders\aabb.frag" />
+    <None Include="shaders\aabb.vert" />
+    <None Include="shaders\basic.frag" />
+    <None Include="shaders\basic.vert" />
+    <None Include="shaders\framebuffer.frag" />
+    <None Include="shaders\framebuffer.vert" />
+    <None Include="shaders\general.frag" />
+    <None Include="shaders\general.vert" />
+    <None Include="shaders\light.frag" />
+    <None Include="shaders\light.vert" />
+    <None Include="shaders\skybox.frag" />
+    <None Include="shaders\skybox.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
