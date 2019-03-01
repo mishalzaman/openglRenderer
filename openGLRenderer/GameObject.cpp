@@ -35,6 +35,16 @@ glm::vec3 GameObject::getPosition()
 	return this->position;
 }
 
+void GameObject::setType(std::string type)
+{
+	this->type = type;
+}
+
+std::string GameObject::getType()
+{
+	return this->type;
+}
+
 void GameObject::cleanUp()
 {
 	

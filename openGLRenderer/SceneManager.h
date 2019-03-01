@@ -19,7 +19,7 @@ public:
 	SceneManager();
 	~SceneManager();
 	void load(const char* filename, glm::mat4 projection);
-	void update(glm::mat4 view, float deltaTime);
+	void update(glm::mat4 view, glm::vec3 cameraPosition, float deltaTime);
 	void draw();
 private:
 	std::map<int, GameObject*> entities;

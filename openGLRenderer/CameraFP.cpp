@@ -69,3 +69,8 @@ void CameraFP::strafeLeft(float deltaTime)
 {
 	this->position -= glm::normalize(glm::cross(this->frontVector, this->up)) * this->speed * deltaTime;
 }
+
+glm::vec3 CameraFP::getCameraPosition()
+{
+	return this->position;
+}

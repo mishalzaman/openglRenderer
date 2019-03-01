@@ -117,28 +117,40 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\aabb.fs">
+    <None Include="shaders\basic.frag">
       <Filter>shaders</Filter>
     </None>
-    <None Include="shaders\aabb.vs">
+    <None Include="shaders\basic.vert">
       <Filter>shaders</Filter>
     </None>
-    <None Include="shaders\basic.fs">
+    <None Include="shaders\light.frag">
       <Filter>shaders</Filter>
     </None>
-    <None Include="shaders\basic.vs">
+    <None Include="shaders\light.vert">
       <Filter>shaders</Filter>
     </None>
-    <None Include="shaders\framebuffer.fs">
+    <None Include="shaders\framebuffer.frag">
       <Filter>shaders</Filter>
     </None>
-    <None Include="shaders\framebuffer.vs">
+    <None Include="shaders\framebuffer.vert">
       <Filter>shaders</Filter>
     </None>
-    <None Include="shaders\skybox.fs">
+    <None Include="shaders\skybox.frag">
       <Filter>shaders</Filter>
     </None>
-    <None Include="shaders\skybox.vs">
+    <None Include="shaders\skybox.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\aabb.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\aabb.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\general.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\general.vert">
       <Filter>shaders</Filter>
     </None>
   </ItemGroup>

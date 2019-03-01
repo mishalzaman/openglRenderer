@@ -3,8 +3,8 @@
 
 SkyBox::SkyBox()
 {
-	std::string vertex = "shaders/skybox.vs";
-	std::string fragment = "shaders/skybox.fs";
+	std::string vertex = "shaders/skybox.vert";
+	std::string fragment = "shaders/skybox.frag";
 	this->shader = new Shader(vertex.c_str(), fragment.c_str());
 }
 

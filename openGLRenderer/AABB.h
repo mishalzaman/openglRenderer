@@ -19,7 +19,7 @@ public:
 	bool isInside(AABB other);
 	void render(glm::mat4 projection, glm::mat4 view, glm::vec3 position, glm::vec3 scale);
 private:
-	Shader* shader = new Shader("shaders/aabb.vs", "shaders/aabb.fs");
+	Shader* shader = new Shader("shaders/aabb.vert", "shaders/aabb.frag");
 	std::vector<float> vertices;
 	std::vector<unsigned int> indices;
 	unsigned int VBO;
