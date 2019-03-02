@@ -10,10 +10,10 @@ ML 1	assets/sphere/sphere.obj
 ML 2	assets/cube/cube.obj
 
 # entities
-# id model_id shader_id		px		py		pz		sx		sy		sz		   Type
-EN 0        0		  0		0.0		0.0		0.0		1.5		0.5		1.5f	   static
-EN 1		1		  0		0.0		1.0		4.0		0.5		0.5		0.5f	   static
-EN 2		2		  0		4.0		1.0		0.0		0.5		0.5		0.5f	   static	
-EN 3		2		  0		4.0		1.0		4.0		0.5		0.5		0.5f	   static	
-EN 4		2		  0		4.0		4.0		4.0		0.5		0.5		0.5f	   static	
-EN 5		1		  1		0.0		5.0		0.0		0.1		0.1		0.1        light
+# id model_id shader_id		px		py		pz		sx		sy		sz		Type
+EN 0        0		  0		0.0		0.0		0.0		1.5		0.5		1.5		static
+EN 1		1		  0		0.0		1.0		4.0		0.5		0.5		0.5		static
+EN 2		2		  0		4.0		1.0		0.0		0.5		0.5		0.5		static	
+EN 3		2		  0		4.0		1.0		4.0		0.5		0.5		0.5		static	
+EN 4		2		  0		4.0		4.0		4.0		0.5		0.5		0.5		static	
+EN 5		1		  1		0.0		5.0		0.0		0.1		0.1 	0.1     light

@@ -28,6 +28,6 @@ private:
 	glm::mat4 projectionMatrix;
 	glm::mat4 viewMatrix;
 	std::vector<AABB*> bounds;
-	std::string type = "static";
+	std::string type;
 };
 

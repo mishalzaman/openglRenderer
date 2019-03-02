@@ -78,10 +78,11 @@ void SceneManager::loadSceneFile(const char* filename)
 			string ignore;
 			int id, model_id, shader_id;
 			float px, py, pz, sx, sy, sz;
-			std::string type;
+			string type;
 
 			iss >> ignore >> id >> model_id >> shader_id >> px >> py >> pz >> sx >> sy >> sz >> type;
 			this->entities[id] = new GameObject(this->shaders[shader_id], this->models[model_id], glm::vec3(px, py, pz), glm::vec3(sx, sy, sz));
+			cout << type << endl;
 			this->entities[id]->setType(type);
 		}
 	}
