@@ -5,6 +5,7 @@
 #include "Shader.h"
 #include "Model.h"
 #include "AABB.h"
+#include "CameraFP.h"
 #include <vector>
 #include <string>
 
@@ -13,7 +14,8 @@ class GameObject
 public:
 	Shader shader;
 	Model model;
-	GameObject(Shader *shader, Model *model, glm::vec3 position, glm::vec3 scale);
+	CameraFP &camera;
+	GameObject(Shader *shader, Model *model, CameraFP &camera, glm::vec3 position, glm::vec3 scale);
 	~GameObject();
 	void update(float deltaTime);
 	void render();

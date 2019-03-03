@@ -9,23 +9,31 @@
 #include "GameObject.h"
 #include "Shader.h"
 #include "Model.h"
-#include "UniformBuffer.h"
+#include "CameraFP.h"
 
 using namespace std;
+
+class UniformBufferMatrices;
+class UniformBufferLights;
 
 class SceneManager
 {
 public:
-	SceneManager();
+	SceneManager(CameraFP &camera);
 	~SceneManager();
 	void load(const char* filename, glm::mat4 projection);
-	void update(glm::mat4 view, glm::vec3 cameraPosition, float deltaTime);
+	void update(glm::mat4 view, float deltaTime);
 	void draw();
+	CameraFP &camera;
 private:
 	std::map<int, GameObject*> entities;
+	std::map<int, GameObject*> lightEntities;
+	std::map<int, GameObject*> materialEntities;
 	std::map<int, Shader*> shaders;
 	std::map<int, Model*> models;
-	std::vector<UniformBuffer*> uniformBuffers;
+	UniformBufferMatrices* uniformBuffersMatrices;
+	UniformBufferLights* uniformBuffersLights;
 
 	void loadSceneFile(const char* filename);
+	std::map<int, GameObject*> &getEntities(std::string entity);
 };

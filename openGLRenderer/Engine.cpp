@@ -5,6 +5,8 @@
 #include "SkyBox.h"
 #include "FrameBuffer.h"
 
+using namespace std;
+
 Engine::Engine(int screenWidth, int screenHeight)
 {
 	this->screenWidth = screenWidth;
@@ -32,7 +34,7 @@ void Engine::initialize()
 {
 	this->camera = new CameraFP(this->screenWidth, this->screenHeight);
 	this->input = new Input();
-	this->sceneManager = new SceneManager();
+	this->sceneManager = new SceneManager(*this->camera);
 	this->skybox = new SkyBox();
 	this->framebuffer = new FrameBuffer(this->screenWidth, this->screenHeight);
 }
@@ -48,19 +50,17 @@ void Engine::update(float deltaTime)
 {
 	this->updateUserInput(deltaTime);
 	this->view = this->camera->getViewMatrix();
-	this->sceneManager->update(this->view, camera->getCameraPosition(), deltaTime);
+	this->sceneManager->update(this->view, deltaTime);
 }
 
 void Engine::render()
 {
 	this->cullingOptions();
 
-	
 	this->framebuffer->firstPass();
 	this->sceneManager->draw();
 	this->skybox->draw(this->view, this->projection);
 
-	
 	this->framebuffer->secondPass();
 	this->framebuffer->render();
 
