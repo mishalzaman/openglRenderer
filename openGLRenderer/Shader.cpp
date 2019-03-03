@@ -53,6 +53,17 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 	// delete the shaders as they're linked into our program now and no longer necessary
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
+
+	// get the uniform block indices
+	unsigned int uniformBlockIndexLights = glGetUniformBlockIndex(ID, "Lights");
+	// link the shader's uniform block to the uniform binding point
+	// Here we are binding the shader block index to buffer base 1
+	glUniformBlockBinding(ID, uniformBlockIndexLights, 1);
+
+	// get the uniform block indices
+	unsigned int uniformBlockIndexMatrices = glGetUniformBlockIndex(ID, "Matrices");
+	// link the shader's uniform block to the uniform binding point
+	glUniformBlockBinding(ID, uniformBlockIndexMatrices, 0);
 }
 
 void Shader::use()
