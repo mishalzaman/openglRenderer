@@ -8,6 +8,7 @@ SR 1	  shaders/light.vert		shaders/light.frag
 ML 0	assets/rectangle/rectangle.obj
 ML 1	assets/sphere/sphere.obj
 ML 2	assets/cube/cube.obj
+ML 3	assets/tree/tree.obj
 
 # entities
 # id model_id shader_id		px		py		pz		sx		sy		sz		Type
@@ -17,3 +18,4 @@ EN 2		2		  0		4.0		1.0		0.0		0.5		0.5		0.5		static
 EN 3		2		  0		4.0		1.0		4.0		0.5		0.5		0.5		static	
 EN 4		2		  0		4.0		4.0		4.0		0.5		0.5		0.5		static	
 EN 5		1		  1		0.0		5.0		0.0		0.1		0.1 	0.1     light
+EN 6		3		  0		0.0		0.0		0.0		0.1		0.1 	0.1     static

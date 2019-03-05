@@ -19,7 +19,7 @@ GameObject::~GameObject()
 }
 
 void GameObject::update(float deltaTime)
-{
+{	
 	this->modelMatrix = glm::translate(glm::mat4(1.0f), this->position);
 	this->modelMatrix = glm::scale(this->modelMatrix, this->scale); 
 }

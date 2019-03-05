@@ -28,6 +28,8 @@ uniform vec3 viewPos;
 uniform Material material;
 uniform Light light;
 
+uniform samplerCube skybox;
+
 void main()
 {
     // ambient

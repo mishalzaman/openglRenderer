@@ -7,28 +7,10 @@ I have always been interested in how 3d graphics are created and rendered, there
 - Assimp (model loader)
 - stbi (texture loader)
 
-## Features
+## Current Features
 
-### In Progress
-- [ ] Scene Manager
-  - [x] Read and load from a flat file
-  - [x] load shaders
-  - [x] load meshes
-  - [x] load entities
-  - [ ] load uniform buffers (for shader uniforms)
-  - [x] Attach each entity to a game object class
-- [x] Shader (load vertex/fragment shaders and link them)
-- [x] Model (load meshes using assimp)
-- [x] SkyBox
-- [ ] First Person Camera
-  - [ ] Requires adjustments to sensitivity
-- [x] Input (handle user input)
+- [x] first person camera
+- [x] Uniform buffers
+- [x] Cube map / Sky box
+- [x] Forward rendering
 - [x] FrameBuffer
-- [x] Engine (main class that loads OpenGL prerequisites, creates context etc)
-- [ ] AABB (Axis Align Bounding Box collision) 
-
-### Future
-- [ ] Variable time step where renderer is independent of user input.
-- [ ] Uniform Buffer Objects
-- [ ] Shadow Mapping
-- [ ] Physically Based Rendering
